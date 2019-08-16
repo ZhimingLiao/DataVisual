@@ -15,9 +15,16 @@ Including another URLconf
 """
 
 from django.urls import path
+
 from . import views
+
+app_name = 'infos'
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('count_data', views.count_data, name='count_data'),
+    path('ranking_data', views.rank_data, name='rank_data'),
+    path('regions_data', views.region_data, name='regions_data'),
+    path('csrc_data', views.csrc_data, name='csrc_data'),
+    path('month_data', views.month_data, name='month_data'),
 ]

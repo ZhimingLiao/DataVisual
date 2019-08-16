@@ -1,8 +1,8 @@
 {
-	"listed_companies_total": 3574,
-	"listed_securities_total": 50018,
+  "listed_companies_total": 3574.00,
+  "listed_securities_total": 50018.88,
 	"total_market_value": 455294.1,
-	"circulation_market_value": 370447.9,
+  "circulation_market_value": 370447.99,
 	"sh_pe_ratio": 13.16,
 	"sz_pe_ratio": 20.99	
 }

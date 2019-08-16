@@ -24,7 +24,7 @@ SECRET_KEY = '7(be+4a6z4k0np(spyzaa&a346#1=&c7&&05^c4@@entfux&xw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# 备注 如果配置404 500则需要将上下两项调整为False *
 ALLOWED_HOSTS = []
 
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -105,9 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hans'  #'en-us'
+LANGUAGE_CODE = 'zh-hans'  # 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'  # 修改为中国时区'UTC'
 
 USE_I18N = True
 

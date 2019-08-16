@@ -1,62 +1,62 @@
 [
 	{
 		"order": 1,
-		"stock_code": "601398",
-		"stock_name": "工商银行",
-		"market_capitalization": 14451.21
+      "stock_code": "60",
+      "stock_name": "李健",
+      "market_capitalization": 18989
 	},
 	{
 		"order": 2,
 		"stock_code": "601857",
-		"stock_name": "中国石油",
-		"market_capitalization": 13148.07
+      "stock_name": "王翠亭",
+      "market_capitalization": 13148
 	},
 	{
 		"order": 3,
 		"stock_code": "601288",
-		"stock_name": "农业银行",
-		"market_capitalization": 11620.49
+      "stock_name": "张三",
+      "market_capitalization": 11620
 	},
 	{
 		"order": 4,
 		"stock_code": "601988",
-		"stock_name": "中国银行",
-		"market_capitalization": 7608.64
+      "stock_name": "李四",
+      "market_capitalization": 7608
 	},
 	{
 		"order": 5,
 		"stock_code": "601318",
-		"stock_name": "中国平安",
-		"market_capitalization": 7004.4
+      "stock_name": "茅台",
+      "market_capitalization": 7004
 	},
 	{
 		"order": 6,
 		"stock_code": "600519",
-		"stock_name": "贵州茅台",
-		"market_capitalization": 6934.21
+      "stock_name": "张天",
+      "market_capitalization": 6934
 	},
 	{
 		"order": 7,
 		"stock_code": "600028",
-		"stock_name": "中国石化",
-		"market_capitalization": 5905.48
+      "stock_name": "张天一",
+      "market_capitalization": 5905
 	},
 	{
 		"order": 8,
 		"stock_code": "600036",
-		"stock_name": "招商银行",
-		"market_capitalization": 5891.63
+      "stock_name": "李炳华",
+      "market_capitalization": 5891
 	},
 	{
 		"order": 9,
 		"stock_code": "601628",
-		"stock_name": "中国人寿",
-		"market_capitalization": 4583.26
+      "stock_name": "测试",
+      "market_capitalization": 4583
 	},
 	{
 		"order": 10,
 		"stock_code": "601088",
-		"stock_name": "中国神华",
+      "stock_name": "神华",
 		"market_capitalization": 3298.21
 	}
 ]
