@@ -28,7 +28,8 @@ body {
 .header-info-r {right:20px;}
 #footer {
 	position:absolute;
-	bottom:0;
+    bottom: 0px;
+    color: #fff;
 	left:0;
 	right:0;
 	height:28px;

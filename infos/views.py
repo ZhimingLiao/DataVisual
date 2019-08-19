@@ -1,18 +1,37 @@
+import datetime
 import json
 import random
+import threading
 
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, render_to_response
+from django.core import serializers
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, render_to_response, reverse
 from django.views.decorators.csrf import csrf_protect
+
+from .models import InfosConfig
 
 
 # Create your views here.
 
+@csrf_protect
+def default(request):
+    return HttpResponseRedirect(reverse("infos:index"))
+
 
 @csrf_protect
 def index(request):
-    return render(request, 'infos/case1/index.html')
-
+    datas = InfosConfig.objects.filter(deleted_flag=False)
+    sits_config = serializers.serialize("json", datas)
+    global false, null, true
+    false = null = true = ''
+    # result = eval(sits_config)[0]['fields']
+    data = eval(sits_config)
+    configs = dict()
+    for value in data:
+        configs[value['fields']['key']] = value['fields']['value']
+    configs['year'] = datetime.datetime.now().year
+    # print(configs)
+    return render(request, 'infos/case1/index.html', context={'site_configs': configs})
 
 # 1,读取统计数据
 @csrf_protect
@@ -87,7 +106,9 @@ def month_data(request):
     for i in range(len(data['result'])):
         data['result'][i]['sh_market_capitalization'] = random.randint(585, 20000)
         data['result'][i]['sh_transaction_amount'] = random.randint(955, 2900)
-        data['result'][i]['sh_pe_ratio'] = random.randint(15, 24)
+        data['result'][i]['sh_pe_ratio'] = random.randint(955, 2900)
+        data['result'][i]['sz_market_capitalization'] = random.randint(9155, 12900)
+        data['result'][i]['sz_transaction_amount'] = random.randint(9055, 20000)
     # print(data)
     return HttpResponse(json.dumps(data['result']) if not data['error'] else json.dumps({'msg': '获取数据失败!', 'error': 4}))
 
@@ -106,10 +127,45 @@ def page_error(request):
     return render(request, 'infos/404.html')
 
 
+@csrf_protect
+def online(request):
+    sum = read_db()
+    return render(request, 'infos/case2/index.html', {'sum': sum})
+
+
+@csrf_protect
+def online_data(request):
+    sum = read_db()
+    data = dict()
+    data['sum'] = sum
+    return HttpResponse(json.dumps(data))
+
+
+def read_db():
+    global R
+    R = threading.Lock()
+    R.acquire()
+    now = datetime.datetime.now()
+    otherStyleTime = now.strftime("%Y%m%d")
+    import cx_Oracle
+    ip = '192.168.8.235'
+    port = 1521
+    SID = 'orcl'
+    dsn_tns = cx_Oracle.makedsn(ip, port, SID)
+    conn = cx_Oracle.connect('cdr_zs', 'cdr_zs', dsn_tns)
+    cur = conn.cursor()
+    sql = "select count(*) sum from CDR_ZS.DATA_EXCHANGE_CDR_LOG " \
+          "where STORETIME_STOREOBJECT > to_date('{}', 'yyyyMMdd')".format(otherStyleTime)
+    cur.execute(sql)
+    rows = cur.fetchall()  # 得到所有数据集
+    # for row in rows:
+    #     print("%s, %s, %s, %s" % (row[0], row[1], row[2], row[3]))
+    sum = rows[0][0]
+    # print(sum)
+    cur.close()
+    R.release()
+    return sum
+
+
 if __name__ == "__main__":
-    file_name = 'count-data.json'
-    result = read_json(file_name)['result']
-    for k, v in result.items():
-        result[k] = random.randint(300, 2000)
-    print(result, type(result))
-    # print(read_json(file_name)['result'])
+    pass

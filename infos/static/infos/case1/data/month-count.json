@@ -3,10 +3,10 @@
 		"month": "1月",
 		"sh_market_capitalization": 351041.76,
 		"sh_transaction_amount": 58096.59,
-		"sh_pe_ratio": 19.25,
-		"sz_market_capitalization": 0,
-		"sz_transaction_amount": 0,
-		"sz_pe_ratio": 0
+      "sh_pe_ratio": 19,
+      "sz_market_capitalization": 56,
+      "sz_transaction_amount": 77,
+      "sz_pe_ratio": 3
 	},
 	{
 		"month": "2月",
