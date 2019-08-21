@@ -40,6 +40,56 @@ body.bg06 {
     color: #5dc2fe;
 }
 
+.number-animate {
+    line-height: 85px;
+    height: 85px;
+    font-size: 80px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+}
+
+.number-animate .number-animate-dot {
+    width: 21px;
+    float: left;
+    text-align: center;
+}
+
+.number-animate .number-animate-dom {
+    width: 27px;
+    text-align: center;
+    float: left;
+    position: relative;
+    top: 0;
+}
+
+.number-animate .number-animate-dom span, .number-animate .number-animate-dot span {
+    float: left;
+    width: 100%;
+    height: 85px;
+    line-height: 1;
+}
+
+.OdometerBg {
+    margin: 20px;
+}
+
+.OdometerBg .number-animate .number-animate-dom, .OdometerBg .number-animate .number-animate-dot {
+    width: 80px;
+}
+
+.OdometerBg .number-animate .number-animate-dot span {
+    background: #222;
+    color: yellow;
+    border-left: 1px solid #fff;
+}
+
+.OdometerBg .number-animate .number-animate-dom {
+    background: #222;
+    color: yellow;
+    border-left: 1px solid #fff;
+}
+
 @media (max-width: 1199px) {
     .header {
         background: url("../img/header-left.png") left bottom no-repeat, url("../img/header-right.png") right bottom no-repeat;
@@ -141,3 +191,4 @@ body.bg06 {
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.3);
 }
+

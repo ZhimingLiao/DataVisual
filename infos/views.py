@@ -33,6 +33,7 @@ def index(request):
     # print(configs)
     return render(request, 'infos/case1/index.html', context={'site_configs': configs})
 
+
 # 1,读取统计数据
 @csrf_protect
 def count_data(request):
@@ -138,6 +139,7 @@ def online_data(request):
     sum = read_db()
     data = dict()
     data['sum'] = sum
+    print("查询到数据:" + str(sum))
     return HttpResponse(json.dumps(data))
 
 
@@ -148,9 +150,7 @@ def read_db():
     now = datetime.datetime.now()
     otherStyleTime = now.strftime("%Y%m%d")
     import cx_Oracle
-    ip = '192.168.8.235'
-    port = 1521
-    SID = 'orcl'
+    ip, port, SID = '192.168.8.235', 1521, "orcl"
     dsn_tns = cx_Oracle.makedsn(ip, port, SID)
     conn = cx_Oracle.connect('cdr_zs', 'cdr_zs', dsn_tns)
     cur = conn.cursor()
@@ -168,4 +168,5 @@ def read_db():
 
 
 if __name__ == "__main__":
+    print(read_db())
     pass

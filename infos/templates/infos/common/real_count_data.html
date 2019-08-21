@@ -1,0 +1,46 @@
+{% load static %}
+<div class="flex-cell flex-cell-c" style="padding-right:0;">
+    <div class="chart-wrapper">
+        <h3 class="chart-title">{{ site_configs.real_title }}</h3>
+        <div class="chart-div chart-done">
+            <table class="data-t">
+                <tr>
+                    <th><img src="{% static 'infos/case1/img/sum_out.png' %}"/></th>
+                    <td>
+                        <p><span id="listedCompany">{{ site_configs.real_display }}</span></p>
+                        <p>{{ site_configs.real_name1_out }}</p>
+                    </td>
+                    <th><img src="{% static 'infos/case1/img/sum_in.png' %}"/></th>
+                    <td>
+                        <p><span id="listedSecurity">{{ site_configs.real_display }}</span></p>
+                        <p>{{ site_configs.real_name1_in }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><img src="{% static 'infos/case1/img/book_out.png' %}"/></th>
+                    <td>
+                        <p><span id="totalMarket">{{ site_configs.real_display }}</span></p>
+                        <p>{{ site_configs.real_name2_out }}</p>
+                    </td>
+                    <th><img src="{% static 'infos/case1/img/bed_in.png' %}"/></th>
+                    <td>
+                        <p><span id="circulationMarket">{{ site_configs.real_display }}</span></p>
+                        <p>{{ site_configs.real_name2_in }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><img src="{% static 'infos/case1/img/doc_out.png' %}"/></th>
+                    <td>
+                        <p><span id="shRatio">{{ site_configs.real_display }}</span></p>
+                        <p>{{ site_configs.real_name3_out }}</p>
+                    </td>
+                    <th><img src="{% static 'infos/case1/img/hos_in.png' %}"/></th>
+                    <td>
+                        <p><span id="szRatio">{{ site_configs.real_display }}</span></p>
+                        <p>当{{ site_configs.real_name3_in }}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
