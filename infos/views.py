@@ -3,15 +3,20 @@ import json
 import random
 import threading
 
+import schedule
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, reverse
 from django.views.decorators.csrf import csrf_protect
 
+# 日志工具包
+from demo.loger.Logger import Logger
 from .models import InfosConfig
 
-
+online_sum = 0
+logger = Logger("DEBUG", use_console=True, log_path='logs')
 # Create your views here.
+
 
 @csrf_protect
 def default(request):
@@ -130,19 +135,43 @@ def page_error(request):
 
 @csrf_protect
 def online(request):
-    sum = read_db()
-    return render(request, 'infos/case2/index.html', {'sum': sum})
+    global online_sum
+    if online_sum == 0:
+        print("查询数据库...")
+        try:
+            sum_online = read_db()
+        except Exception as e:
+            print('数据库连接失败...\n报错信息:' + e)
+            return render(request, 'infos/case2/index.html', {'sum': 0})
+        else:
+            online_sum = sum_online
+    else:
+        sum_online = online_sum
+    return render(request, 'infos/case2/index.html', {'sum': sum_online})
 
 
 @csrf_protect
 def online_data(request):
-    sum = read_db()
+    t = datetime.datetime.now().second + random.randint(0, 10)
+    global online_sum
+    if t % 10 != 0:
+        try:
+            sum_online = read_db()
+        except Exception as e:
+            print('数据库连接失败...\n报错信息:' + str(e))
+            return HttpResponse(json.dumps({'error': 1, 'msg': '数据库断开连接!请联系后台管理员!'}))
+        else:
+            online_sum = sum_online
+            print("ajax请求使用全局数据(查询数据库数据):" + str(sum_online) + '&时间秒数t=' + str(t))
+    else:
+        sum_online = online_sum
+        # logger.warning("ajax请求使用全局数据(不查询数据库数据):" + str(sum_online)+'&时间秒数t='+str(t))
     data = dict()
-    data['sum'] = sum
-    print("查询到数据:" + str(sum))
+    data['sum'] = sum_online
     return HttpResponse(json.dumps(data))
 
 
+# TODO 继续完善数据库连接失败的情况,如ip或密码不正确以及超时的情况
 def read_db():
     global R
     R = threading.Lock()
@@ -150,6 +179,7 @@ def read_db():
     now = datetime.datetime.now()
     otherStyleTime = now.strftime("%Y%m%d")
     import cx_Oracle
+    # t = threading.Timer(2000, conn.cancel)
     ip, port, SID = '192.168.8.235', 1521, "orcl"
     dsn_tns = cx_Oracle.makedsn(ip, port, SID)
     conn = cx_Oracle.connect('cdr_zs', 'cdr_zs', dsn_tns)
@@ -167,6 +197,9 @@ def read_db():
     return sum
 
 
+schedule.every(5).seconds.do(read_db)
+
+
 if __name__ == "__main__":
-    print(read_db())
+    logger = Logger("DEBUG", use_console=True, log_path='logs').warning("调试")
     pass

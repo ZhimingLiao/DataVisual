@@ -5,6 +5,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="shortcut icon" href="{% static 'infos/img/sun-yat.ico' %}" type="image/x-icon"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
     <title>集成平台交互数据实时监控</title>
     <link rel="stylesheet" href="{% static 'infos/case2/css/bootstrap.min.css' %}"/>
@@ -97,6 +98,9 @@
                 dataType: "json"
             }).done(function (data) {
                 //online_sum.html(data.sum);
+                if (data['error'] == 1) {
+                    alert(data['msg'])
+                }
                 $('#real_sum').html(data.sum);
                 window.clearInterval(window.t);
                 odo.num = window.online_sum;
