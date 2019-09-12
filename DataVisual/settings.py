@@ -24,7 +24,7 @@ SECRET_KEY = '7(be+4a6z4k0np(spyzaa&a346#1=&c7&&05^c4@@entfux&xw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# 备注 如果配置404 500则需要将上下两项调整为False *
+# 备注 如果配置404 500则需要将上下两项调整为False *,记得加单引号
 ALLOWED_HOSTS = []
 
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'infos.apps.InfosConfig',  # 新增app
+    'DjangoUeditor',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# 能够在富文本中使用图片、文件等上传功能，需要在django中定义好这些媒体资源的存储根路径
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_DIRS = (
+    os.path.join(BASE_DIR, 'media')
+)

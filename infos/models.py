@@ -1,5 +1,7 @@
+from DjangoUeditor.models import UEditorField
 from django.db import models
 from django.utils.html import format_html
+
 
 # Create your models here.
 
@@ -54,3 +56,14 @@ class Patient(models.Model):
     doc_code = models.CharField('医生编码', max_length=10, null=False)
     doc_name = models.CharField('医生姓名', max_length=32, null=False)
     create_time = models.DateTimeField('创建时间', null=True)
+
+
+# 用于演示的样例,使用富文本输入
+class Article(models.Model):
+    title = models.CharField(max_length=50, verbose_name=' 文章标题')
+    content = UEditorField(u'内容', default='', width=1000, height=300, imagePath='uploads/imgs/',
+                           filePath='uploads/files/')
+
+    class Meta:
+        verbose_name = '文章'
+        verbose_name_plural = '文章'

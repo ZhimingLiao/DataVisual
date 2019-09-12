@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import InfosConfig, Patient
+from .models import InfosConfig, Patient, Article
 
 admin.site.site_header = '中山大学孙逸仙纪念医院'
 admin.site.site_title = '后台管理'
@@ -30,3 +30,9 @@ class Patientadmin(admin.ModelAdmin):
     list_per_page = 10
 
 # admin.site.register(Patient, Patientadmin)
+
+
+# 用于演示的样例,使用富文本输入
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    style_fields = {'content': 'ueditor'}

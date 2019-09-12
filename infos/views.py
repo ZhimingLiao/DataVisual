@@ -3,7 +3,6 @@ import json
 import random
 import threading
 
-import schedule
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, reverse
@@ -139,7 +138,11 @@ def online(request):
     if online_sum == 0:
         print("查询数据库...")
         try:
-            sum_online = read_db()
+            result = read_db()
+            if result['error'] == 0:
+                sum_online = result['result']
+            elif result['error'] == 1:
+                sum_online = 0
         except Exception as e:
             print('数据库连接失败...\n报错信息:' + e)
             return render(request, 'infos/case2/index.html', {'sum': 0})
@@ -154,15 +157,23 @@ def online(request):
 def online_data(request):
     t = datetime.datetime.now().second + random.randint(0, 10)
     global online_sum
-    if t % 10 != 0:
+    if t % 10 == 0:
         try:
-            sum_online = read_db()
+            result = read_db()
+            if result['error'] == 0:
+                sum_online = result['result']
+            elif result['error'] == 1:
+                sum_online = 0
         except Exception as e:
             print('数据库连接失败...\n报错信息:' + str(e))
-            return HttpResponse(json.dumps({'error': 1, 'msg': '数据库断开连接!请联系后台管理员!'}))
+            # return HttpResponse(json.dumps({'error': 1, 'msg': '数据库断开连接!请联系后台管理员!'}))
         else:
             online_sum = sum_online
+            result['sum'] = online_sum
+            result['msg'] = '数据库断开连接!请联系后台管理员!'
             print("ajax请求使用全局数据(查询数据库数据):" + str(sum_online) + '&时间秒数t=' + str(t))
+        finally:
+            return HttpResponse(json.dumps(result))
     else:
         sum_online = online_sum
         # logger.warning("ajax请求使用全局数据(不查询数据库数据):" + str(sum_online)+'&时间秒数t='+str(t))
@@ -181,23 +192,34 @@ def read_db():
     import cx_Oracle
     # t = threading.Timer(2000, conn.cancel)
     ip, port, SID = '192.168.8.235', 1521, "orcl"
-    dsn_tns = cx_Oracle.makedsn(ip, port, SID)
-    conn = cx_Oracle.connect('cdr_zs', 'cdr_zs', dsn_tns)
-    cur = conn.cursor()
-    sql = "select count(*) sum from CDR_ZS.DATA_EXCHANGE_CDR_LOG " \
-          "where STORETIME_STOREOBJECT > to_date('{}', 'yyyyMMdd')".format(otherStyleTime)
-    cur.execute(sql)
-    rows = cur.fetchall()  # 得到所有数据集
-    # for row in rows:
-    #     print("%s, %s, %s, %s" % (row[0], row[1], row[2], row[3]))
-    sum = rows[0][0]
-    # print(sum)
-    cur.close()
-    R.release()
-    return sum
+    try:
+        dsn_tns = cx_Oracle.makedsn(ip, port, SID)
+        conn = cx_Oracle.connect('cdr_zs', 'cdr_zs', dsn_tns)
+    except cx_Oracle.DatabaseError as e:
+        logger.error(e)
+        return {'error': 1, 'msg': '数据库连接错误'}
+    except Exception as e:
+        logger.error(e)
+        # return {'error': -1, 'msg': '未知错误'}
+        raise e
+    else:
+        cur = conn.cursor()
+        sql = "select count(*) sum from CDR_ZS.DATA_EXCHANGE_CDR_LOG " \
+              "where STORETIME_STOREOBJECT > to_date('{}', 'yyyyMMdd')".format(otherStyleTime)
+        cur.execute(sql)
+        rows = cur.fetchall()  # 得到所有数据集
+        # for row in rows:
+        #     print("%s, %s, %s, %s" % (row[0], row[1], row[2], row[3]))
+        sum = rows[0][0]
+        # print(sum)
+        cur.close()
+        conn.commit()
+        R.release()
+        return {'error': 0, 'msg': '处理成功!', 'result': sum}
 
 
-schedule.every(5).seconds.do(read_db)
+def home(request):
+    return render(request, 'infos/home.html')
 
 
 if __name__ == "__main__":

@@ -30,4 +30,5 @@ urlpatterns = [
     path('csrc_data', views.csrc_data, name='csrc_data'),
     path('month_data', views.month_data, name='month_data'),
     path('online_data', views.online_data, name='online_data'),
+    path('home', views.home, name='home'),
 ]
