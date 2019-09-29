@@ -120,6 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# 静态文件所在位置
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # 能够在富文本中使用图片、文件等上传功能，需要在django中定义好这些媒体资源的存储根路径
 
 MEDIA_URL = '/media/'

@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页-聚焦当下</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo.ico" media="screen"/>
+    <link href="https://cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #E9EBEE;
+            font-family: "Microsoft YaHei", "黑体";
+        }
+    </style>
+</head>
+<body>
+<!--顶端标题-->
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top p-1">
+    <div class="container text-center">
+        <a class="navbar-brand col-3 col-sm-2 col-md-2 col-lg-2 mr-auto" href="#">
+            <span class="icon-comment"></span>信息
+        </a>
+        <!--搜索框-->
+        <form class="form-inline col-9 col-md-8 col-lg-6 col-sm-8">
+            <div class="input-group col-12">
+                <input class="form-control" type="search" placeholder="键入内容进行搜索..." aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit"><span
+                            class=" icon-search ">搜索</span><span class="sr-only">搜索</span></button>
+                </div>
+            </div>
+        </form>
+        <!-- 按钮边框 -->
+        <button class="navbar-toggler col d-none d-md-block d-lg-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavbar">
+            <!-- 方框里面三条线 -->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse col-5 ml-auto" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">主页<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><span class="icon-question-sign"/>&nbsp;帮助</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--内容-->
+<div class="container mt-2 mb-3" id="content">
+    <div class="row">
+        <div class="col-lg-2 offset-ld-1 d-none d-lg-block">
+            <div class="col-12 text-muted">我</div>
+            <hr class="w-auto mt-1"/>
+            <div class="col-12 text-muted">发现</div>
+            <hr class="w-auto mt-1"/>
+        </div>
+        <!--文章更新的主要内容-->
+        <div class="col-lg-6 col-md-8">
+            <!--内容编写框-->
+            <div class="row">
+                <div class="card w-100">
+                    <form method="post" action="/">
+                        <div class="card-header ml-auto  bg-success m-0 p-1 pl-2">
+                            <img src="{% static 'infos/img/test.jpg' %}" class="img-circle"
+                                 style="width: 50px;height: 50px;border-radius: 50%;" alt="...">
+                        </div>
+                        <div class="card-body m-1 p-0">
+                            <textarea class="form-control" id="textarea" rows="4" placeholder="此处填写内容..."></textarea>
+                        </div>
+                        <div class="card-footer m-0 p-1">
+                            <span class="badge badge-pill badge-success btn-lg" style="font-size: 1rem;"><span
+                                    class="icon-leaf"></span>&nbsp;&nbsp;表情</span>
+                            <span><button type="submit" class="btn btn-primary m-auto pt-0 pb-0 pull-right"
+                                          style="font-size: 1rem;">&nbsp;&nbsp;发布&nbsp;&nbsp;</button></span>
+                            <span id="strong" class="text-success"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--分类-->
+            <div class="row text-center bg-info rounded mt-2 p-2">
+                <div class="col-4">附近</div>
+                <div class="col-4">评论</div>
+                <div class="col-4">推荐</div>
+            </div>
+            <div class="row pt-1">
+                <!--推荐内容-->
+                <div class="card w-100">
+                    <div class="card-header py-1"><span class="text-muted icon-bullhorn">&nbsp;推荐</span></div>
+                    <img class="card-img-top" src="holder.js/100px300" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">上次更新3小时前</small>
+                    </div>
+                </div>
+            </div>
+            <!--个人动态-->
+            <div class="row pt-1">
+                <div class="card w-100">
+                    <div class="card-body pl-3 pt-3">
+                        <div class="row">
+                            <div class="col-2 text-right"><img src="{% static 'infos/img/test.jpg' %}"
+                                                               class="img-circle img-responsive"
+                                                               style="width: 50px;height: 50px;border-radius: 50%;"
+                                                               alt="...">
+                            </div>
+                            <div class="col-10">
+                                <!--头像-->
+                                <div class="row">test</div>
+                                <div class="row">test2</div>
+                                <!--内容-->
+                                <div class="row pr-2">王牌内科医生楚洛寒，结婚已有三年。却无人知道，她的丈夫就是江都第一豪门龙家大少——人人闻风丧胆的枭爷。守了三年活
+                                    寡，眼睁睁看着他和第三 者的恩爱照片横扫荧屏，她笑了，“龙枭，咱们离婚。”曾经，他连正眼都不屑看她，但，“呵！离婚？女人，你当我龙枭是什么？”她刷刷签字，扔出婚戒，“唔
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer py-1 text-center">
+                        <div class="row">
+                            <div class="col-4 border-right">赞</div>
+                            <div class="col-4 border-right">评论</div>
+                            <div class="col-4">分享</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边-->
+        <div class="col-lg-3 col-md-4 d-none d-md-block">
+            <div class="card w-100">
+                <img src="{% static 'infos/img/test.jpg' %}" class="card-img-top img-responsive"
+                     alt="...">
+                <div class="card-body p-1 m-0 mb-2">
+                    <div class="row" style="margin-top: -10%">
+                        <div class="col-3">
+                            <img src="{% static 'infos/img/test.jpg' %}" class="img-circle"
+                                 style="border-radius: 50%;width: 50px;height: 50px;" alt="...">
+                        </div>
+                        <div class="col-9 p-1">
+                            <span class="position-absolute" style="top:50%">Name</span>
+                        </div>
+                    </div>
+                    <div class=" text-center">
+                        <div class="row">
+                            <div class="col-4 border-right">赞</div>
+                            <div class="col-4 border-right">评论</div>
+                            <div class="col-4">分享</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--版权说明等信息-->
+            <div class="text-muted font-weight-bold text-center p-1" style="font-size: 14px;">&copy;<span
+                    id="years_now"></span>&nbsp;<span>All&nbsp;Rights&nbsp;Reserved</span>
+                <div>Version:1.0</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/holder/2.9.6/holder.min.js"></script>
+
+
+<script>
+    const onResize = function () {
+        // apply dynamic padding at the top of the body according to the fixed navbar height
+        $("body").css("padding-top", $(".fixed-top").height() + $(".fixed-top").outerHeight() - $(".fixed-top").height());
+    };
+    $(window).resize(onResize);
+
+    // call it also when the page is ready after load or reload
+    $(function () {
+        onResize();
+        const now = new Date();
+        const year = now.getFullYear();
+        $("#years_now").html(year);
+
+        //给文本域响应键盘按下事件
+        $('#textarea').keyup(function () {
+            const maxLength = 256;
+            const len = $.trim($(this).val()).length;
+            $('#strong').text(maxLength - len);
+            //判断输入是否超过140个数
+            if (parseInt($('#strong').text()) < 0) {
+                $('strong').text(0);
+                //截取前140个字符并重新塞到文本域中
+                const content = $(this).val().substring(0, maxLength);
+                $(this).val(content);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

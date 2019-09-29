@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DataVisual.iml" filepath="$PROJECT_DIR$/.idea/DataVisual.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../andy/.idea/andy.iml" filepath="$PROJECT_DIR$/../andy/.idea/andy.iml" />
     </modules>
   </component>
 </project>

@@ -24,10 +24,11 @@ class InfosConfig(models.Model):
             else format_html('<span style="color:#00ff00;">{}</span>', '正常')
 
     effective_flag.short_description = '删除标识'
-    # # 后台点击保存操作
-    # def save(self, *args, **kwargs):
-    #     self.key = self.
-    #     super().save(*args, **kwargs)
+
+    class Meta:
+        # 后台表明显示的别名
+        verbose_name = '配置信息'
+        verbose_name_plural = '配置信息'
 
 
 # 患者住院,门诊,预约信息
@@ -57,6 +58,11 @@ class Patient(models.Model):
     doc_name = models.CharField('医生姓名', max_length=32, null=False)
     create_time = models.DateTimeField('创建时间', null=True)
 
+    class Meta:
+        # 后台表明显示的别名
+        verbose_name = '患者信息表'
+        verbose_name_plural = '患者信息表'
+
 
 # 用于演示的样例,使用富文本输入
 class Article(models.Model):
@@ -65,5 +71,9 @@ class Article(models.Model):
                            filePath='uploads/files/')
 
     class Meta:
+        # 后台表明显示的别名
         verbose_name = '文章'
-        verbose_name_plural = '文章'
+        verbose_name_plural = '文章(测试)'
+
+    def __str__(self):
+        return self.content

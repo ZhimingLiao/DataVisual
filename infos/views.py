@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_protect
 
 # 日志工具包
 from demo.loger.Logger import Logger
+# 百度富文本编辑器
+from .forms import forms
 from .models import InfosConfig
 
 online_sum = 0
@@ -218,8 +220,10 @@ def read_db():
         return {'error': 0, 'msg': '处理成功!', 'result': sum}
 
 
+# home页面
 def home(request):
-    return render(request, 'infos/home.html')
+    content_forms = forms.TestForm()
+    return render(request, 'infos/home.html', {"forms": content_forms})
 
 
 if __name__ == "__main__":
