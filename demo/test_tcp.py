@@ -62,21 +62,18 @@ def test_tcp_send(sock=None, datas=None, start='\x0b', end='\x1c\x0d', encode='u
     # 1. 对入参进行过滤处理
     if not sock:
         return {'error': 1, 'msg': '套接字对象Socket未提供!'}
-    # 1.1 对数据进行压缩,头部和尾部不压缩
-
-    datas_zip = start.encode() + datas + end.encode()
-    print(datas_zip)
+    # 1.组装数据,添加尾部和头部
+    datas_zip = start.encode() + datas.encode() + end.encode()
     # 2. 发送数据到指定ip和端口
     sock.send(datas_zip)
-
     data = ''
     # 循环接受套接字数据
     while True:
         print(f'正在接收中...')
         rec = sock.recv(1024)
         print(f'已接受到数据:\n{rec}')
-        data = data + rec.decode()
-        if rec.find('\x0d'.encode()) != -1:
+        data = data + rec.decode(encode)
+        if rec.find('\x1c\x0d'.encode()) != -1:
             print('数据接收结束,退出!')
             break
         else:
@@ -85,7 +82,7 @@ def test_tcp_send(sock=None, datas=None, start='\x0b', end='\x1c\x0d', encode='u
     # print(t[t.find(b'\x0b')+1:t.find(b'\x1c')])
     sock.close()
     # 去除消息内容尾部
-    data = data.rstrip('\x0d')
+    data = data.rstrip('\x1c\x0d')
     return {'error': 0, 'msg': '成功接受到数据!', 'data': data}
 
 
@@ -93,7 +90,7 @@ def test_tcp_send(sock=None, datas=None, start='\x0b', end='\x1c\x0d', encode='u
 def send_data():
     from test_timer import Timer
     ip_test = '127.0.0.1'
-    port_test = 5000
+    port_test = 20000
     msg = 'MSH|^~\\&|LIS||NHIS||20190528085648||OUL^R21|793867|P|2.4|||AL|AL\r' \
           + 'PID|||^^^^IDCard~^^^^IdentifyNO~^^^^Outpatient~201940226^^^^PatientNO||朱子涵|||F\r' \
           + 'PV1||I|^^^696^儿1科||||||0545^朱晓虎||||||||||201940226|||||||||||||||||||||||||20190522100642\r' \
@@ -115,11 +112,4 @@ def send_data():
 
 
 if __name__ == '__main__':
-    msg = r'MSH|^~\&|LIS||NHIS||20190528085648||OUL^R21|793867|P|2.4|||AL|AL\r' \
-          + r'PID|||^^^^IDCard~^^^^IdentifyNO~^^^^Outpatient~201940226^^^^PatientNO||朱子涵|||F\r' \
-          + r'PV1||I|^^^696^儿1科||||||0545^朱晓虎||||||||||201940226|||||||||||||||||||||||||20190522100642\r' \
-          + r'OBR|1|1005450034391|119052258274|06671^血培养(加药敏进口仪器）^MIC||20190522113802|||||||||0002&' \
-            r'静脉全血|||儿1科|696|||20190528085648||||||||||0729|0209\r' \
-          + r'NTE|1\r' \
-          + r'OBX|14140288|TX|^^^05051104^培养7天无细菌生长||||||||F|||20190528085648\r'
-    print(msg)
+    print(send_data())
